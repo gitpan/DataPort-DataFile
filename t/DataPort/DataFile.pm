@@ -10,8 +10,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.02';
-$DATE = '2003/06/23';
+$VERSION = '0.03';
+$DATE = '2003/06/24';
 $FILE = __FILE__;
 
 ########
@@ -40,7 +40,7 @@ $FILE = __FILE__;
 
  Version: 
 
- Date: 2003/06/23
+ Date: 2003/06/24
 
  Prepared for: General Public 
 
@@ -80,18 +80,20 @@ L<STD FormDB Test Description Fields|Test::STDmaker/STD FormDB Test Description 
 
 =head2 Test Plan
 
- T: 10^
+ T: 9^
 
 =head2 ok: 1
 
 
   C:
-     use File::FileUtil;
-     my $fu = 'File::FileUtil';
+     use File::SmartNL;
+     my $snl = 'File::SmartNL';
+     use File::Package;
+     my $fp = 'File::Package';
  ^
  VO: ^
   N: UUT not loaded^
-  A: my $loaded = $fu->is_package_loaded('t::DataPort::DataFileI')^
+  A: my $loaded = $fp->is_package_loaded('t::DataPort::DataFileI')^
   E:  ''^
  ok: 1^
 
@@ -100,24 +102,15 @@ L<STD FormDB Test Description Fields|Test::STDmaker/STD FormDB Test Description 
   N: Load UUT^
   R: L<DataPort::DataFile/general [1] - load>^
   S: $loaded^
-  C: my $errors = $fu->load_package( 't::DataPort::DataFileI' )^
+  C: my $errors = $fp->load_package( 't::DataPort::DataFileI' )^
   A: $errors^
  SE: ''^
  ok: 2^
 
 =head2 ok: 3
 
- VO: ^
-  N: No pod errors^
-  R: L<DataPort::DataFile/general [2] - pod check>^
-  A: $fu->pod_errors( 'DataPort::DataFile')^
-  E: 0^
- ok: 3^
-
-=head2 ok: 4
-
  DO: ^
-  A: $fu->fin( 'DataFile0.tdb' )^
+  A: $snl->fin( 'DataFile0.tdb' )^
 
   C:
      unlink 'DataFile1.txt';
@@ -126,16 +119,16 @@ L<STD FormDB Test Description Fields|Test::STDmaker/STD FormDB Test Description 
      my $dbh = new t::DataPort::DataFileI(flag => '<', file => 'DataFile0.tdb',
                 option1 => '1', option2 => '2' );
      while( $dbh->get($array_p, $record_p) ) {
-         $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
-         $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+         $snl->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+         $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
      }
  ^
   N: get with record^
-  A: $fu->fin('DataFile1.txt')^
-  E: $fu->fin('DataFile2.txt')^
- ok: 4^
+  A: $snl->fin('DataFile1.txt')^
+  E: $snl->fin('DataFile2.txt')^
+ ok: 3^
 
-=head2 ok: 5
+=head2 ok: 4
 
 
   C:
@@ -144,16 +137,16 @@ L<STD FormDB Test Description Fields|Test::STDmaker/STD FormDB Test Description 
      $dbh = new t::DataPort::DataFileI(flag => '<', file => 'DataFile0.tdb',
                 option3 => '3', option4 => '4',  option5 => '5' );
      while( $dbh->get($array_p) ) {
-         $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+         $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
      }
      $dbh->finish();
  ^
   N: get without record^
-  A: $fu->fin('DataFile1.txt')^
-  E: $fu->fin('DataFile3.txt')^
- ok: 5^
+  A: $snl->fin('DataFile1.txt')^
+  E: $snl->fin('DataFile3.txt')^
+ ok: 4^
 
-=head2 ok: 6
+=head2 ok: 5
 
 
   C:
@@ -166,22 +159,22 @@ L<STD FormDB Test Description Fields|Test::STDmaker/STD FormDB Test Description 
      foreach $array_p (@db) {
          $record = ''; 
          $dbh->put($array_p, $record_p);
-         $fu->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+         $snl->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
      }
      $dbh->finish();
  ^
   N: put with record^
-  A: $fu->fin('DataFile1.tdb')^
-  E: $fu->fin('DataFile2.tdb')^
+  A: $snl->fin('DataFile1.tdb')^
+  E: $snl->fin('DataFile2.tdb')^
+ ok: 5^
+
+=head2 ok: 6
+
+  A: $snl->fin('DataFile1.txt')^
+  E: $snl->fin('DataFile4.txt')^
  ok: 6^
 
 =head2 ok: 7
-
-  A: $fu->fin('DataFile1.txt')^
-  E: $fu->fin('DataFile4.txt')^
- ok: 7^
-
-=head2 ok: 8
 
 
   C:
@@ -198,11 +191,11 @@ L<STD FormDB Test Description Fields|Test::STDmaker/STD FormDB Test Description 
      $dbh->finish();
  ^
   N: put with without record^
-  A: $fu->fin('DataFile1.tdb')^
-  E: $fu->fin('DataFile3.tdb')^
- ok: 8^
+  A: $snl->fin('DataFile1.tdb')^
+  E: $snl->fin('DataFile3.tdb')^
+ ok: 7^
 
-=head2 ok: 9
+=head2 ok: 8
 
 
   C:
@@ -218,11 +211,11 @@ L<STD FormDB Test Description Fields|Test::STDmaker/STD FormDB Test Description 
      $dbh->finish();
  ^
   N: binary put with without record^
-  A: $fu->fin('DataFile1.tdb')^
-  E: $fu->fin('DataFile4.tdb')^
- ok: 9^
+  A: $snl->fin('DataFile1.tdb')^
+  E: $snl->fin('DataFile4.tdb')^
+ ok: 8^
 
-=head2 ok: 10
+=head2 ok: 9
 
 
   C:
@@ -231,15 +224,15 @@ L<STD FormDB Test Description Fields|Test::STDmaker/STD FormDB Test Description 
      $dbh = new t::DataPort::DataFileI(flag => '<', file => 'DataFile0.tdb',
                 binary => 1, option10 => '10', option11 => '11' );
      while( $dbh->get($array_p, $record_p) ) {
-         $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1, binary => 1});
-         $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1, binary => 1});
+         $snl->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1, binary => 1});
+         $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1, binary => 1});
      }
      $dbh->finish();
  ^
   N: binary get with record^
-  A: $fu->fin('DataFile1.txt')^
-  E: $fu->fin('DataFile5.txt')^
- ok: 10^
+  A: $snl->fin('DataFile1.txt')^
+  E: $snl->fin('DataFile5.txt')^
+ ok: 9^
 
 
 
@@ -254,13 +247,11 @@ L<STD FormDB Test Description Fields|Test::STDmaker/STD FormDB Test Description 
   Requirement                                                      Test
  ---------------------------------------------------------------- ----------------------------------------------------------------
  L<DataPort::DataFile/general [1] - load>                         L<t::DataPort::DataFile/ok: 2>
- L<DataPort::DataFile/general [2] - pod check>                    L<t::DataPort::DataFile/ok: 3>
 
 
   Test                                                             Requirement
  ---------------------------------------------------------------- ----------------------------------------------------------------
  L<t::DataPort::DataFile/ok: 2>                                   L<DataPort::DataFile/general [1] - load>
- L<t::DataPort::DataFile/ok: 3>                                   L<DataPort::DataFile/general [2] - pod check>
 
 
 =cut
@@ -363,37 +354,33 @@ Demo: DataFile.d^
 Verify: DataFile.t^
 
 
- T: 10^
+ T: 9^
 
 
  C:
-    use File::FileUtil;
-    my $fu = 'File::FileUtil';
+    use File::SmartNL;
+    my $snl = 'File::SmartNL';
+
+    use File::Package;
+    my $fp = 'File::Package';
 ^
 
 VO: ^
  N: UUT not loaded^
- A: my $loaded = $fu->is_package_loaded('t::DataPort::DataFileI')^
+ A: my $loaded = $fp->is_package_loaded('t::DataPort::DataFileI')^
  E:  ''^
 ok: 1^
 
  N: Load UUT^
  R: L<DataPort::DataFile/general [1] - load>^
  S: $loaded^
- C: my $errors = $fu->load_package( 't::DataPort::DataFileI' )^
+ C: my $errors = $fp->load_package( 't::DataPort::DataFileI' )^
  A: $errors^
 SE: ''^
 ok: 2^
 
-VO: ^
- N: No pod errors^
- R: L<DataPort::DataFile/general [2] - pod check>^
- A: $fu->pod_errors( 'DataPort::DataFile')^
- E: 0^
-ok: 3^
-
 DO: ^
- A: $fu->fin( 'DataFile0.tdb' )^
+ A: $snl->fin( 'DataFile0.tdb' )^
 
  C:
     unlink 'DataFile1.txt';
@@ -404,15 +391,15 @@ DO: ^
                option1 => '1', option2 => '2' );
 
     while( $dbh->get($array_p, $record_p) ) {
-        $fu->fout( 'DataFile1.txt', $$record_p . "\n~--~\n", {append=>1});
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~--~\n", {append=>1});
+        $snl->fout( 'DataFile1.txt', $$record_p . "\n~--~\n", {append=>1});
+        $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~--~\n", {append=>1});
     }
 ^
 
  N: get with record^
- A: $fu->fin('DataFile1.txt')^
- E: $fu->fin('DataFile2.txt')^
-ok: 4^
+ A: $snl->fin('DataFile1.txt')^
+ E: $snl->fin('DataFile2.txt')^
+ok: 3^
 
 
  C:
@@ -423,15 +410,15 @@ ok: 4^
                option3 => '3', option4 => '4',  option5 => '5' );
 
     while( $dbh->get($array_p) ) {
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~--~\n", {append=>1});
+        $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~--~\n", {append=>1});
     }
     $dbh->finish();
 ^
 
  N: get without record^
- A: $fu->fin('DataFile1.txt')^
- E: $fu->fin('DataFile3.txt')^
-ok: 5^
+ A: $snl->fin('DataFile1.txt')^
+ E: $snl->fin('DataFile3.txt')^
+ok: 4^
 
 
  C:
@@ -446,19 +433,19 @@ ok: 5^
     foreach $array_p (@db) {
         $record = ''; 
         $dbh->put($array_p, $record_p);
-        $fu->fout('DataFile1.txt', $$record_p . "\n~--~\n", {append=>1});
+        $snl->fout('DataFile1.txt', $$record_p . "\n~--~\n", {append=>1});
     }
     $dbh->finish();
 ^
 
  N: put with record^
- A: $fu->fin('DataFile1.tdb')^
- E: $fu->fin('DataFile2.tdb')^
-ok: 6^
+ A: $snl->fin('DataFile1.tdb')^
+ E: $snl->fin('DataFile2.tdb')^
+ok: 5^
 
- A: $fu->fin('DataFile1.txt')^
- E: $fu->fin('DataFile4.txt')^
-ok: 7^
+ A: $snl->fin('DataFile1.txt')^
+ E: $snl->fin('DataFile4.txt')^
+ok: 6^
 
 
  C:
@@ -478,9 +465,9 @@ ok: 7^
 ^
 
  N: put with without record^
- A: $fu->fin('DataFile1.tdb')^
- E: $fu->fin('DataFile3.tdb')^
-ok: 8^
+ A: $snl->fin('DataFile1.tdb')^
+ E: $snl->fin('DataFile3.tdb')^
+ok: 7^
 
 
  C:
@@ -499,9 +486,9 @@ ok: 8^
 ^
 
  N: binary put with without record^
- A: $fu->fin('DataFile1.tdb')^
- E: $fu->fin('DataFile4.tdb')^
-ok: 9^
+ A: $snl->fin('DataFile1.tdb')^
+ E: $snl->fin('DataFile4.tdb')^
+ok: 8^
 
 
  C:
@@ -512,16 +499,16 @@ ok: 9^
                binary => 1, option10 => '10', option11 => '11' );
 
     while( $dbh->get($array_p, $record_p) ) {
-        $fu->fout( 'DataFile1.txt', $$record_p . "\n~--~\n", {append => 1, binary => 1});
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~--~\n", {append => 1, binary => 1});
+        $snl->fout( 'DataFile1.txt', $$record_p . "\n~--~\n", {append => 1, binary => 1});
+        $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~--~\n", {append => 1, binary => 1});
     }
     $dbh->finish();
 ^
 
  N: binary get with record^
- A: $fu->fin('DataFile1.txt')^
- E: $fu->fin('DataFile5.txt')^
-ok: 10^
+ A: $snl->fin('DataFile1.txt')^
+ E: $snl->fin('DataFile5.txt')^
+ok: 9^
 
 
  C:

@@ -29,13 +29,15 @@ else {
 WriteMakefile(
     NAME => 'DataPort::DataFile',
     DISTNAME => 'DataPort-DataFile',
-    VERSION  => '0.01',
+    VERSION  => '0.02',
     dist     => {COMPRESS => 'gzip',
                 'gz' => 'gz'},
     test     => {TESTS => $tests},
     PREREQ_PM => {'Test::Tech' => 1.08,
 'Test::STD::Scrub' => 1.07,
-'File::FileUtil' => 1.09,},
+'File::Package' => 0,
+'File::SmartNL' => 0,
+'File::TestPath' => 0,},
     EXE_FILES => $exe,
 
     ($] >= 5.005 ?     

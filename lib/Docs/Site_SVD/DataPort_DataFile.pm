@@ -10,20 +10,20 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.01';
-$DATE = '2003/06/23';
+$VERSION = '0.02';
+$DATE = '2003/06/24';
 $FILE = __FILE__;
 
 use vars qw(%INVENTORY);
 %INVENTORY = (
-    'lib/Docs/Site_SVD/DataPort_DataFile.pm' => [qw(0.01 2003/06/23), 'revised 0.04'],
-    'MANIFEST' => [qw(0.01 2003/06/23), 'generated, replaces 0.04'],
-    'Makefile.PL' => [qw(0.01 2003/06/23), 'generated, replaces 0.04'],
-    'README' => [qw(0.01 2003/06/23), 'generated, replaces 0.04'],
-    'lib/DataPort/DataFile.pm' => [qw(0.02 2003/06/23), 'revised 0.01'],
-    't/DataPort/DataFile.d' => [qw(0.03 2003/06/23), 'revised 0.02'],
-    't/DataPort/DataFile.pm' => [qw(0.02 2003/06/23), 'revised 0.01'],
-    't/DataPort/DataFile.t' => [qw(0.05 2003/06/23), 'revised 0.04'],
+    'lib/Docs/Site_SVD/DataPort_DataFile.pm' => [qw(0.02 2003/06/24), 'revised 0.01'],
+    'MANIFEST' => [qw(0.02 2003/06/24), 'generated, replaces 0.01'],
+    'Makefile.PL' => [qw(0.02 2003/06/24), 'generated, replaces 0.01'],
+    'README' => [qw(0.02 2003/06/24), 'generated, replaces 0.01'],
+    'lib/DataPort/DataFile.pm' => [qw(0.02 2003/06/23), 'unchanged'],
+    't/DataPort/DataFile.d' => [qw(0.04 2003/06/24), 'revised 0.03'],
+    't/DataPort/DataFile.pm' => [qw(0.03 2003/06/24), 'revised 0.02'],
+    't/DataPort/DataFile.t' => [qw(0.06 2003/06/24), 'revised 0.05'],
     't/DataPort/DataFile0.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile2.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile2.txt' => [qw(0.01 2003/06/08), 'unchanged'],
@@ -31,8 +31,8 @@ use vars qw(%INVENTORY);
     't/DataPort/DataFile3.txt' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile4.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile4.txt' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile5.txt' => [qw(0.02 2003/06/23), 'revised 0.01'],
-    't/DataPort/DataFileI.pm' => [qw(0.01 2003/06/23), 'new'],
+    't/DataPort/DataFile5.txt' => [qw(0.02 2003/06/23), 'unchanged'],
+    't/DataPort/DataFileI.pm' => [qw(0.01 2003/06/23), 'unchanged'],
 
 );
 
@@ -59,11 +59,11 @@ use vars qw(%INVENTORY);
 
  DataPort::DataFile - Pure Perl API for database files.
 
- Revision: D
+ Revision: A
 
- Version: 0.01
+ Version: 0.02
 
- Date: 2003/06/23
+ Date: 2003/06/24
 
  Prepared for: General Public 
 
@@ -97,11 +97,12 @@ and streams them to a stanadard pure Perl API.
 
 The dependency of the program modules in the US DOD STD2167A bundle is as follows:
  
- File::FileUtil 
-   Test::STD::Scrub
-     Test::Tech
-        DataPort::FileType::FormDB DataPort::DataFile DataPort::Maker Test::STD::Template
-            Test::STDmaker ExtUtils::SVDmaker
+ File::Package 
+   File::TestPath File::SmartNL
+      Test::STD::Scrub
+        Test::Tech
+           DataPort::FileType::FormDB DataPort::DataFile DataPort::Maker Test::STD::Template
+             Test::STDmaker ExtUtils::SVDmaker
 
 Note the 
 L<File::FileUtil|File::FileUtil>, 
@@ -113,7 +114,7 @@ and Test::TestUtil has disappeared.
 
 =head2 1.3 Document overview.
 
-This document releases DataPort::DataFile version 0.01
+This document releases DataPort::DataFile version 0.02
 providing description of the inventory, installation
 instructions and other information necessary to
 utilize and track this release.
@@ -129,8 +130,8 @@ system file specification.
 This document releases the file found
 at the following repository(s):
 
-   http://www.softwarediamonds/packages/DataPort-DataFile-0.01
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.01
+   http://www.softwarediamonds/packages/DataPort-DataFile-0.02
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.02
 
 
 Restrictions regarding duplication and license provisions
@@ -198,14 +199,14 @@ consists of the following files:
 
  file                                                         version date       comment
  ------------------------------------------------------------ ------- ---------- ------------------------
- lib/Docs/Site_SVD/DataPort_DataFile.pm                       0.01    2003/06/23 revised 0.04
- MANIFEST                                                     0.01    2003/06/23 generated, replaces 0.04
- Makefile.PL                                                  0.01    2003/06/23 generated, replaces 0.04
- README                                                       0.01    2003/06/23 generated, replaces 0.04
- lib/DataPort/DataFile.pm                                     0.02    2003/06/23 revised 0.01
- t/DataPort/DataFile.d                                        0.03    2003/06/23 revised 0.02
- t/DataPort/DataFile.pm                                       0.02    2003/06/23 revised 0.01
- t/DataPort/DataFile.t                                        0.05    2003/06/23 revised 0.04
+ lib/Docs/Site_SVD/DataPort_DataFile.pm                       0.02    2003/06/24 revised 0.01
+ MANIFEST                                                     0.02    2003/06/24 generated, replaces 0.01
+ Makefile.PL                                                  0.02    2003/06/24 generated, replaces 0.01
+ README                                                       0.02    2003/06/24 generated, replaces 0.01
+ lib/DataPort/DataFile.pm                                     0.02    2003/06/23 unchanged
+ t/DataPort/DataFile.d                                        0.04    2003/06/24 revised 0.03
+ t/DataPort/DataFile.pm                                       0.03    2003/06/24 revised 0.02
+ t/DataPort/DataFile.t                                        0.06    2003/06/24 revised 0.05
  t/DataPort/DataFile0.tdb                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile2.tdb                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile2.txt                                     0.01    2003/06/08 unchanged
@@ -213,63 +214,20 @@ consists of the following files:
  t/DataPort/DataFile3.txt                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile4.tdb                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile4.txt                                     0.01    2003/06/08 unchanged
- t/DataPort/DataFile5.txt                                     0.02    2003/06/23 revised 0.01
- t/DataPort/DataFileI.pm                                      0.01    2003/06/23 new
+ t/DataPort/DataFile5.txt                                     0.02    2003/06/23 unchanged
+ t/DataPort/DataFileI.pm                                      0.01    2003/06/23 unchanged
 
 
 =head2 3.3 Changes
 
 Changes to the previous version are as follows:
 
-=over 4
+Broke up the package "File::FileUtil" into packages with
+functional similar functions with a more descriptive 
+package name.
 
-=item *
-
-Broke "DataPort::DataFile" away into its
-own module.
-Move the "DataPort::DataFileI" test interface module
-to "t::DataPort::DataFileI".
-
-\item *
-
-Added a modest amount of new documentation to "DataPort::DataFile"
-Still have a long ways to go to finish up.
-
-=item *
-
-At 08:39 AM 6/23/2003 +0000, Josts Smokehouse wrote:
-
-[snip]
-
-PERL_DL_NONLAZY=1 /usr/local/perl/bin/perl "-MExtUtils::Command::MM" "-e" "test_harness(0, 'blib/lib', 'blib/arch')" t/DataPort/FormDB.t t/DataPort/DataFile.t
-t/DataPort/DataFile....# Test 10 got: 'test record 1
-binary => 1
-file => DataFile0.tdb
-
-[snip]
-
-
-(t/DataPort/DataFile.t at line 261)
-#    Expected: 'test record 1
-
-binary => 1
-
-[snip]
-
-~~~~~~
-Notice the double line after 'test record 1' for expected and a single line for got
-
-For step 10, different new lines for Microsoft and Unix are acting up again.
-
-From:
-        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1);
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1);
-
-To:
-        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1, binary => 1});
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1, binary => 1});
-
-=back
+Replace "File::FileUtil" with "File::Package", "File::smartNL"
+and "File::TestPath".
 
 Previous changes are as follows:
 
@@ -350,6 +308,57 @@ into "File::FileUtil", "Test::STD::Scrub" and
 
 Theses changes impacted the test software.
 
+=item DataPort_FormDB 0.05
+
+=over 4
+
+=item *
+
+Broke "DataPort::DataFile" away into its
+own module.
+Move the "DataPort::DataFileI" test interface module
+to "t::DataPort::DataFileI".
+
+\item *
+
+Added a modest amount of new documentation to "DataPort::DataFile"
+Still have a long ways to go to finish up.
+
+=item *
+
+At 08:39 AM 6/23/2003 +0000, Josts Smokehouse wrote:
+
+[snip]
+
+PERL_DL_NONLAZY=1 /usr/local/perl/bin/perl "-MExtUtils::Command::MM" "-e" "test_harness(0, 'blib/lib', 'blib/arch')" t/DataPort/FormDB.t t/DataPort/DataFile.t
+t/DataPort/DataFile....# Test 10 got: 'test record 1
+binary => 1
+file => DataFile0.tdb
+
+[snip]
+
+
+(t/DataPort/DataFile.t at line 261)
+#    Expected: 'test record 1
+
+binary => 1
+
+[snip]
+
+~~~~~~
+Notice the double line after 'test record 1' for expected and a single line for got
+
+For step 10, different new lines for Microsoft and Unix are acting up again.
+
+From:
+        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1);
+        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1);
+
+To:
+        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1, binary => 1});
+        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1, binary => 1});
+
+=back
 
 =back
 
@@ -393,15 +402,18 @@ Follow the instructions for the the chosen installation software.
 
 The distribution file is at the following respositories:
 
-   http://www.softwarediamonds/packages/DataPort-DataFile-0.01
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.01
+   http://www.softwarediamonds/packages/DataPort-DataFile-0.02
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.02
 
 
 =item Prerequistes.
 
-'Test::Tech' => 1.08,
-'Test::STD::Scrub' => 1.07,
-'File::FileUtil' => 1.09,
+ 'Test::Tech' => 1.08,
+ 'Test::STD::Scrub' => 1.07,
+ 'File::Package' => 0,
+ 'File::SmartNL' => 0,
+ 'File::TestPath' => 0,
+
 
 =item Security, privacy, or safety precautions.
 
@@ -611,13 +623,13 @@ US DOD 2167A automation are as follows:
 __DATA__
 
 DISTNAME: DataPort-DataFile^
-VERSION : 0.01^
+VERSION : 0.02^
 REPOSITORY_DIR: packages^
 FREEZE: 1^
 
-PREVIOUS_DISTNAME: DataPort-FormDB^
-REVISION: D^
-PREVIOUS_RELEASE: 0.04^
+PREVIOUS_DISTNAME:  ^
+REVISION: A^
+PREVIOUS_RELEASE: 0.01^
 AUTHOR  : SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>^
 
 ABSTRACT: 
@@ -654,7 +666,9 @@ t/DataPort/DataFile*
 PREREQ_PM:
 'Test::Tech' => 1.08,
 'Test::STD::Scrub' => 1.07,
-'File::FileUtil' => 1.09,
+'File::Package' => 0,
+'File::SmartNL' => 0,
+'File::TestPath' => 0,
 ^
 
 TESTS:
@@ -666,55 +680,12 @@ EXE_FILES:  ^
 CHANGES:
 Changes to the previous version are as follows:
 
-\=over 4
+Broke up the package "File::FileUtil" into packages with
+functional similar functions with a more descriptive 
+package name.
 
-\=item *
-
-Broke "DataPort::DataFile" away into its
-own module.
-Move the "DataPort::DataFileI" test interface module
-to "t::DataPort::DataFileI".
-
-\item *
-
-Added a modest amount of new documentation to "DataPort::DataFile"
-Still have a long ways to go to finish up.
-
-\=item *
-
-At 08:39 AM 6/23/2003 +0000, Josts Smokehouse wrote:
-
-[snip]
-
-PERL_DL_NONLAZY=1 /usr/local/perl/bin/perl "-MExtUtils::Command::MM" "-e" "test_harness(0, 'blib/lib', 'blib/arch')" t/DataPort/FormDB.t t/DataPort/DataFile.t
-t/DataPort/DataFile....# Test 10 got: 'test record 1
-binary => 1
-file => DataFile0.tdb
-
-[snip]
-
-
-(t/DataPort/DataFile.t at line 261)
-#    Expected: 'test record 1
-
-binary => 1
-
-[snip]
-
-~~~~~~
-Notice the double line after 'test record 1' for expected and a single line for got
-
-For step 10, different new lines for Microsoft and Unix are acting up again.
-
-From:
-        $fu->fout( 'DataFile1.txt', $$record_p . "\n~--~\n", {append => 1);
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~--~\n", {append => 1);
-
-To:
-        $fu->fout( 'DataFile1.txt', $$record_p . "\n~--~\n", {append => 1, binary => 1});
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~--~\n", {append => 1, binary => 1});
-
-\=back
+Replace "File::FileUtil" with "File::Package", "File::smartNL"
+and "File::TestPath".
 
 Previous changes are as follows:
 
@@ -795,6 +766,57 @@ into "File::FileUtil", "Test::STD::Scrub" and
 
 Theses changes impacted the test software.
 
+\=item DataPort_FormDB 0.05
+
+\=over 4
+
+\=item *
+
+Broke "DataPort::DataFile" away into its
+own module.
+Move the "DataPort::DataFileI" test interface module
+to "t::DataPort::DataFileI".
+
+\item *
+
+Added a modest amount of new documentation to "DataPort::DataFile"
+Still have a long ways to go to finish up.
+
+\=item *
+
+At 08:39 AM 6/23/2003 +0000, Josts Smokehouse wrote:
+
+[snip]
+
+PERL_DL_NONLAZY=1 /usr/local/perl/bin/perl "-MExtUtils::Command::MM" "-e" "test_harness(0, 'blib/lib', 'blib/arch')" t/DataPort/FormDB.t t/DataPort/DataFile.t
+t/DataPort/DataFile....# Test 10 got: 'test record 1
+binary => 1
+file => DataFile0.tdb
+
+[snip]
+
+
+(t/DataPort/DataFile.t at line 261)
+#    Expected: 'test record 1
+
+binary => 1
+
+[snip]
+
+~~~~~~
+Notice the double line after 'test record 1' for expected and a single line for got
+
+For step 10, different new lines for Microsoft and Unix are acting up again.
+
+From:
+        $fu->fout( 'DataFile1.txt', $$record_p . "\n~--~\n", {append => 1);
+        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~--~\n", {append => 1);
+
+To:
+        $fu->fout( 'DataFile1.txt', $$record_p . "\n~--~\n", {append => 1, binary => 1});
+        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~--~\n", {append => 1, binary => 1});
+
+\=back
 
 \=back
 ^
@@ -817,11 +839,12 @@ and streams them to a stanadard pure Perl API.
 
 The dependency of the program modules in the US DOD STD2167A bundle is as follows:
  
- File::FileUtil 
-   Test::STD::Scrub
-     Test::Tech
-        DataPort::FileType::FormDB DataPort::DataFile DataPort::Maker Test::STD::Template
-            Test::STDmaker ExtUtils::SVDmaker
+ File::Package 
+   File::TestPath File::SmartNL
+      Test::STD::Scrub
+        Test::Tech
+           DataPort::FileType::FormDB DataPort::DataFile DataPort::Maker Test::STD::Template
+             Test::STDmaker ExtUtils::SVDmaker
 
 Note the 
 L<File::FileUtil|File::FileUtil>, 

@@ -7,15 +7,15 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE);
-$VERSION = '0.05';   # automatically generated file
-$DATE = '2003/06/23';
+$VERSION = '0.06';   # automatically generated file
+$DATE = '2003/06/24';
 $FILE = __FILE__;
 
 use Test::Tech;
 use Getopt::Long;
 use Cwd;
 use File::Spec;
-use File::FileUtil;
+use File::TestPath;
 
 ##### Test Script ####
 #
@@ -57,7 +57,7 @@ BEGIN {
    #######
    # Add the library of the unit under test (UUT) to @INC
    #
-   @__restore_inc__ = File::FileUtil->test_lib2inc();
+   @__restore_inc__ = File::TestPath->test_lib2inc();
 
    unshift @INC, File::Spec->catdir( cwd(), 'lib' ); 
 
@@ -74,7 +74,7 @@ BEGIN {
    #
    require Test::Tech;
    Test::Tech->import( qw(plan ok skip skip_tests tech_config) );
-   plan(tests => 10);
+   plan(tests => 9);
 
 }
 
@@ -90,10 +90,13 @@ END {
 }
 
    # Perl code from C:
-    use File::FileUtil;
-    my $fu = 'File::FileUtil';
+    use File::SmartNL;
+    my $snl = 'File::SmartNL';
 
-ok(  my $loaded = $fu->is_package_loaded('t::DataPort::DataFileI'), # actual results
+    use File::Package;
+    my $fp = 'File::Package';
+
+ok(  my $loaded = $fp->is_package_loaded('t::DataPort::DataFileI'), # actual results
       '', # expected results
      '',
      'UUT not loaded');
@@ -101,7 +104,7 @@ ok(  my $loaded = $fu->is_package_loaded('t::DataPort::DataFileI'), # actual res
 #  ok:  1
 
    # Perl code from C:
-my $errors = $fu->load_package( 't::DataPort::DataFileI' );
+my $errors = $fp->load_package( 't::DataPort::DataFileI' );
 
 
 ####
@@ -119,20 +122,6 @@ skip_tests( 1 ) unless skip(
  
 #  ok:  2
 
-
-####
-# verifies requirement(s):
-# L<DataPort::DataFile/general [2] - pod check>
-# 
-
-#####
-ok(  $fu->pod_errors( 'DataPort::DataFile'), # actual results
-     0, # expected results
-     '',
-     'No pod errors');
-
-#  ok:  3
-
    # Perl code from C:
     unlink 'DataFile1.txt';
 
@@ -142,16 +131,16 @@ ok(  $fu->pod_errors( 'DataPort::DataFile'), # actual results
                option1 => '1', option2 => '2' );
 
     while( $dbh->get($array_p, $record_p) ) {
-        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+        $snl->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+        $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
     };
 
-ok(  $fu->fin('DataFile1.txt'), # actual results
-     $fu->fin('DataFile2.txt'), # expected results
+ok(  $snl->fin('DataFile1.txt'), # actual results
+     $snl->fin('DataFile2.txt'), # expected results
      '',
      'get with record');
 
-#  ok:  4
+#  ok:  3
 
    # Perl code from C:
     unlink 'DataFile1.txt';
@@ -161,16 +150,16 @@ ok(  $fu->fin('DataFile1.txt'), # actual results
                option3 => '3', option4 => '4',  option5 => '5' );
 
     while( $dbh->get($array_p) ) {
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+        $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
     }
     $dbh->finish();
 
-ok(  $fu->fin('DataFile1.txt'), # actual results
-     $fu->fin('DataFile3.txt'), # expected results
+ok(  $snl->fin('DataFile1.txt'), # actual results
+     $snl->fin('DataFile3.txt'), # expected results
      '',
      'get without record');
 
-#  ok:  5
+#  ok:  4
 
    # Perl code from C:
     unlink 'DataFile1.txt';
@@ -184,23 +173,23 @@ ok(  $fu->fin('DataFile1.txt'), # actual results
     foreach $array_p (@db) {
         $record = ''; 
         $dbh->put($array_p, $record_p);
-        $fu->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+        $snl->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
     }
     $dbh->finish();
 
-ok(  $fu->fin('DataFile1.tdb'), # actual results
-     $fu->fin('DataFile2.tdb'), # expected results
+ok(  $snl->fin('DataFile1.tdb'), # actual results
+     $snl->fin('DataFile2.tdb'), # expected results
      '',
      'put with record');
 
-#  ok:  6
+#  ok:  5
 
-ok(  $fu->fin('DataFile1.txt'), # actual results
-     $fu->fin('DataFile4.txt'), # expected results
+ok(  $snl->fin('DataFile1.txt'), # actual results
+     $snl->fin('DataFile4.txt'), # expected results
      '',
      '');
 
-#  ok:  7
+#  ok:  6
 
    # Perl code from C:
     $dbh->finish();
@@ -217,12 +206,12 @@ ok(  $fu->fin('DataFile1.txt'), # actual results
     }
     $dbh->finish();
 
-ok(  $fu->fin('DataFile1.tdb'), # actual results
-     $fu->fin('DataFile3.tdb'), # expected results
+ok(  $snl->fin('DataFile1.tdb'), # actual results
+     $snl->fin('DataFile3.tdb'), # expected results
      '',
      'put with without record');
 
-#  ok:  8
+#  ok:  7
 
    # Perl code from C:
     unlink 'DataFile1.txt';
@@ -238,12 +227,12 @@ ok(  $fu->fin('DataFile1.tdb'), # actual results
     }
     $dbh->finish();
 
-ok(  $fu->fin('DataFile1.tdb'), # actual results
-     $fu->fin('DataFile4.tdb'), # expected results
+ok(  $snl->fin('DataFile1.tdb'), # actual results
+     $snl->fin('DataFile4.tdb'), # expected results
      '',
      'binary put with without record');
 
-#  ok:  9
+#  ok:  8
 
    # Perl code from C:
     unlink 'DataFile1.txt';
@@ -253,17 +242,17 @@ ok(  $fu->fin('DataFile1.tdb'), # actual results
                binary => 1, option10 => '10', option11 => '11' );
 
     while( $dbh->get($array_p, $record_p) ) {
-        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1, binary => 1});
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1, binary => 1});
+        $snl->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1, binary => 1});
+        $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1, binary => 1});
     }
     $dbh->finish();
 
-ok(  $fu->fin('DataFile1.txt'), # actual results
-     $fu->fin('DataFile5.txt'), # expected results
+ok(  $snl->fin('DataFile1.txt'), # actual results
+     $snl->fin('DataFile5.txt'), # expected results
      '',
      'binary get with record');
 
-#  ok:  10
+#  ok:  9
 
    # Perl code from C:
     unlink 'DataFile1.txt';

@@ -7,8 +7,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '0.03';   # automatically generated file
-$DATE = '2003/06/23';
+$VERSION = '0.04';   # automatically generated file
+$DATE = '2003/06/24';
 
 
 ##### Demonstration Script ####
@@ -35,12 +35,12 @@ $DATE = '2003/06/23';
 #
 # The working directory is the directory of the generated file
 #
-use vars qw($__restore_dir__);
+use vars qw($__restore_dir__ @__restore_inc__ );
 
 BEGIN {
     use Cwd;
     use File::Spec;
-    use File::FileUtil
+    use File::TestPath;
     use Test::Tech qw(tech_config plan demo);
 
     ########
@@ -56,7 +56,7 @@ BEGIN {
     #
     @__restore_inc__ = File::FileUtil->test_lib2inc();
 
-    unshift @INC, File::Spec->catdir( cwd(), 'lib' ); 
+    unshift @INC, File::TestPath->catdir( cwd(), 'lib' ); 
 
 }
 
@@ -88,20 +88,26 @@ follow on the next lines. For example,
 
 MSG
 
-demo( "\ \ \ \ use\ File\:\:FileUtil\;\
-\ \ \ \ my\ \$fu\ \=\ \'File\:\:FileUtil\'\;"); # typed in command           
-          use File::FileUtil;
-    my $fu = 'File::FileUtil';; # execution
+demo( "\ \ \ \ use\ File\:\:SmartNL\;\
+\ \ \ \ my\ \$snl\ \=\ \'File\:\:SmartNL\'\;\
+\
+\ \ \ \ use\ File\:\:Package\;\
+\ \ \ \ my\ \$fp\ \=\ \'File\:\:Package\'\;"); # typed in command           
+          use File::SmartNL;
+    my $snl = 'File::SmartNL';
 
-demo( "my\ \$errors\ \=\ \$fu\-\>load_package\(\ \'t\:\:DataPort\:\:DataFileI\'\ \)"); # typed in command           
-      my $errors = $fu->load_package( 't::DataPort::DataFileI' ); # execution
+    use File::Package;
+    my $fp = 'File::Package';; # execution
+
+demo( "my\ \$errors\ \=\ \$fp\-\>load_package\(\ \'t\:\:DataPort\:\:DataFileI\'\ \)"); # typed in command           
+      my $errors = $fp->load_package( 't::DataPort::DataFileI' ); # execution
 
 demo( "\$errors", # typed in command           
       $errors # execution
 ) unless     $loaded; # condition for execution                            
 
-demo( "\$fu\-\>fin\(\ \'DataFile0\.tdb\'\ \)", # typed in command           
-      $fu->fin( 'DataFile0.tdb' )); # execution
+demo( "\$snl\-\>fin\(\ \'DataFile0\.tdb\'\ \)", # typed in command           
+      $snl->fin( 'DataFile0.tdb' )); # execution
 
 
 demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
@@ -112,8 +118,8 @@ demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ option1\ \=\>\ \'1\'\,\ option2\ \=\>\ \'2\'\ \)\;\
 \
 \ \ \ \ while\(\ \$dbh\-\>get\(\$array_p\,\ \$record_p\)\ \)\ \{\
-\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
-\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$snl\-\>fout\(\ \'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$snl\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
 \ \ \ \ \}"); # typed in command           
           unlink 'DataFile1.txt';
 
@@ -123,12 +129,12 @@ demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
                option1 => '1', option2 => '2' );
 
     while( $dbh->get($array_p, $record_p) ) {
-        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+        $snl->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+        $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
     }; # execution
 
-demo( "\$fu\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
-      $fu->fin('DataFile1.txt')); # execution
+demo( "\$snl\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
+      $snl->fin('DataFile1.txt')); # execution
 
 
 demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
@@ -138,7 +144,7 @@ demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ option3\ \=\>\ \'3\'\,\ option4\ \=\>\ \'4\'\,\ \ option5\ \=\>\ \'5\'\ \)\;\
 \
 \ \ \ \ while\(\ \$dbh\-\>get\(\$array_p\)\ \)\ \{\
-\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$snl\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
 \ \ \ \ \}\
 \ \ \ \ \$dbh\-\>finish\(\)\;"); # typed in command           
           unlink 'DataFile1.txt';
@@ -148,12 +154,12 @@ demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
                option3 => '3', option4 => '4',  option5 => '5' );
 
     while( $dbh->get($array_p) ) {
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+        $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
     }
     $dbh->finish();; # execution
 
-demo( "\$fu\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
-      $fu->fin('DataFile1.txt')); # execution
+demo( "\$snl\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
+      $snl->fin('DataFile1.txt')); # execution
 
 
 demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
@@ -167,7 +173,7 @@ demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \ \ \ \ foreach\ \$array_p\ \(\@db\)\ \{\
 \ \ \ \ \ \ \ \ \$record\ \=\ \'\'\;\ \
 \ \ \ \ \ \ \ \ \$dbh\-\>put\(\$array_p\,\ \$record_p\)\;\
-\ \ \ \ \ \ \ \ \$fu\-\>fout\(\'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$snl\-\>fout\(\'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
 \ \ \ \ \}\
 \ \ \ \ \$dbh\-\>finish\(\)\;"); # typed in command           
           unlink 'DataFile1.txt';
@@ -181,16 +187,16 @@ demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
     foreach $array_p (@db) {
         $record = ''; 
         $dbh->put($array_p, $record_p);
-        $fu->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+        $snl->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
     }
     $dbh->finish();; # execution
 
-demo( "\$fu\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
-      $fu->fin('DataFile1.tdb')); # execution
+demo( "\$snl\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
+      $snl->fin('DataFile1.tdb')); # execution
 
 
-demo( "\$fu\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
-      $fu->fin('DataFile1.txt')); # execution
+demo( "\$snl\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
+      $snl->fin('DataFile1.txt')); # execution
 
 
 demo( "\ \ \ \ \$dbh\-\>finish\(\)\;\
@@ -220,8 +226,8 @@ demo( "\ \ \ \ \$dbh\-\>finish\(\)\;\
     }
     $dbh->finish();; # execution
 
-demo( "\$fu\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
-      $fu->fin('DataFile1.tdb')); # execution
+demo( "\$snl\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
+      $snl->fin('DataFile1.tdb')); # execution
 
 
 demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
@@ -249,8 +255,8 @@ demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
     }
     $dbh->finish();; # execution
 
-demo( "\$fu\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
-      $fu->fin('DataFile1.tdb')); # execution
+demo( "\$snl\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
+      $snl->fin('DataFile1.tdb')); # execution
 
 
 demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
@@ -260,8 +266,8 @@ demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ binary\ \=\>\ 1\,\ option10\ \=\>\ \'10\'\,\ option11\ \=\>\ \'11\'\ \)\;\
 \
 \ \ \ \ while\(\ \$dbh\-\>get\(\$array_p\,\ \$record_p\)\ \)\ \{\
-\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\ \=\>\ 1\,\ binary\ \=\>\ 1\}\)\;\
-\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\ \=\>\ 1\,\ binary\ \=\>\ 1\}\)\;\
+\ \ \ \ \ \ \ \ \$snl\-\>fout\(\ \'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\ \=\>\ 1\,\ binary\ \=\>\ 1\}\)\;\
+\ \ \ \ \ \ \ \ \$snl\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\ \=\>\ 1\,\ binary\ \=\>\ 1\}\)\;\
 \ \ \ \ \}\
 \ \ \ \ \$dbh\-\>finish\(\)\;"); # typed in command           
           unlink 'DataFile1.txt';
@@ -271,13 +277,13 @@ demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
                binary => 1, option10 => '10', option11 => '11' );
 
     while( $dbh->get($array_p, $record_p) ) {
-        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1, binary => 1});
-        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1, binary => 1});
+        $snl->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1, binary => 1});
+        $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1, binary => 1});
     }
     $dbh->finish();; # execution
 
-demo( "\$fu\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
-      $fu->fin('DataFile1.txt')); # execution
+demo( "\$snl\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
+      $snl->fin('DataFile1.txt')); # execution
 
 
 demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\

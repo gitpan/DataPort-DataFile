@@ -13,8 +13,8 @@ use warnings::register;
 use 5.001;
 
 use vars qw($VERSION $DATE);
-$VERSION = '0.02';
-$DATE = '2003/06/23';
+$VERSION = '0.03';
+$DATE = '2003/07/07';
 
 ########
 # Create new FileType Format Parser
@@ -234,6 +234,565 @@ DataPort::DataFile - pure Perl API for local database files
 Requirements are coming.
 
 =head1 DEMONSTRATION
+
+ ~~~~~~ Demonstration overview ~~~~~
+
+Perl code begins with the prompt
+
+ =>
+
+The selected results from executing the Perl Code 
+follow on the next lines. For example,
+
+ => 2 + 2
+ 4
+
+ ~~~~~~ The demonstration follows ~~~~~
+
+ =>     use File::SmartNL;
+ =>     my $snl = 'File::SmartNL';
+
+ =>     use File::Package;
+ =>     my $fp = 'File::Package';
+
+ =>     my $loaded = '';
+ => my $errors = $fp->load_package( 't::DataPort::DataFileI' )
+ => $errors
+ ''
+
+ => $snl->fin( 'DataFile0.tdb' )
+ 'test record 1
+ test record 2
+ '
+
+ =>     unlink 'DataFile1.txt';
+
+ =>     my $record;
+ =>     my ($array_p, $record_p) = ([], \$record);
+ =>     my $dbh = new t::DataPort::DataFileI(flag => '<', file => 'DataFile0.tdb',
+ =>                option1 => '1', option2 => '2' );
+
+ =>     while( $dbh->get($array_p, $record_p) ) {
+ =>         $snl->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+ =>         $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+ =>     }
+ => $snl->fin('DataFile1.txt')
+ 'test record 1
+ file => DataFile0.tdb
+ flag => <
+ option1 => 1
+ option2 => 2
+ get_record
+
+ file => DataFile0.tdb
+ flag => <
+ option1 => 1
+ option2 => 2
+ decode_record
+
+ ~-~
+ fields
+ +--
+ test record 1
+ file => DataFile0.tdb
+ flag => <
+ option1 => 1
+ option2 => 2
+ get_record
+
+ file => DataFile0.tdb
+ flag => <
+ option1 => 1
+ option2 => 2
+ decode_record
+
+ +--
+ file
+ +--
+ DataFile0.tdb
+ +--
+ flag
+ +--
+ <
+ +--
+ option1
+ +--
+ 1
+ +--
+ option2
+ +--
+ 2
+ +--
+ subroutine
+ +--
+ decode_field
+ ~-~
+ test record 2
+ file => DataFile0.tdb
+ flag => <
+ option1 => 1
+ option2 => 2
+ get_record
+
+ file => DataFile0.tdb
+ flag => <
+ option1 => 1
+ option2 => 2
+ decode_record
+
+ ~-~
+ fields
+ +--
+ test record 2
+ file => DataFile0.tdb
+ flag => <
+ option1 => 1
+ option2 => 2
+ get_record
+
+ file => DataFile0.tdb
+ flag => <
+ option1 => 1
+ option2 => 2
+ decode_record
+
+ +--
+ file
+ +--
+ DataFile0.tdb
+ +--
+ flag
+ +--
+ <
+ +--
+ option1
+ +--
+ 1
+ +--
+ option2
+ +--
+ 2
+ +--
+ subroutine
+ +--
+ decode_field
+ ~-~
+ '
+
+ =>     unlink 'DataFile1.txt';
+ =>     $dbh->finish();
+
+ =>     $dbh = new t::DataPort::DataFileI(flag => '<', file => 'DataFile0.tdb',
+ =>                option3 => '3', option4 => '4',  option5 => '5' );
+
+ =>     while( $dbh->get($array_p) ) {
+ =>         $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+ =>     }
+ =>     $dbh->finish();
+ => $snl->fin('DataFile1.txt')
+ 'fields
+ +--
+ test record 1
+ file => DataFile0.tdb
+ flag => <
+ option3 => 3
+ option4 => 4
+ option5 => 5
+ get_record
+
+ file => DataFile0.tdb
+ flag => <
+ option3 => 3
+ option4 => 4
+ option5 => 5
+ decode_record
+
+ +--
+ file
+ +--
+ DataFile0.tdb
+ +--
+ flag
+ +--
+ <
+ +--
+ option3
+ +--
+ 3
+ +--
+ option4
+ +--
+ 4
+ +--
+ option5
+ +--
+ 5
+ +--
+ subroutine
+ +--
+ decode_field
+ ~-~
+ fields
+ +--
+ test record 2
+ file => DataFile0.tdb
+ flag => <
+ option3 => 3
+ option4 => 4
+ option5 => 5
+ get_record
+
+ file => DataFile0.tdb
+ flag => <
+ option3 => 3
+ option4 => 4
+ option5 => 5
+ decode_record
+
+ +--
+ file
+ +--
+ DataFile0.tdb
+ +--
+ flag
+ +--
+ <
+ +--
+ option3
+ +--
+ 3
+ +--
+ option4
+ +--
+ 4
+ +--
+ option5
+ +--
+ 5
+ +--
+ subroutine
+ +--
+ decode_field
+ ~-~
+ '
+
+ =>     unlink 'DataFile1.txt';
+ =>     unlink 'DataFile1.tdb';
+
+ =>     $dbh = new t::DataPort::DataFileI(flag => '>', file => 'DataFile1.tdb',
+ =>                option6 => '6', option7 => '7' );
+
+ =>     my @db = ( [ 'name1','data1','name2','data2'], [ 'name3', 'data3', 'name4', 'data4' ] );  
+ =>  
+ =>     foreach $array_p (@db) {
+ =>         $record = ''; 
+ =>         $dbh->put($array_p, $record_p);
+ =>         $snl->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+ =>     }
+ =>     $dbh->finish();
+ => $snl->fin('DataFile1.tdb')
+ 'put_record
+ encode_record
+ encode_field
+ name1
+ data1
+ name2
+ data2
+ option file => DataFile1.tdb
+ option flag => >
+ option option6 => 6
+ option option7 => 7
+
+ option file => DataFile1.tdb
+ option flag => >
+ option option6 => 6
+ option option7 => 7
+
+ ~-~
+ put_record
+ encode_record
+ encode_field
+ name3
+ data3
+ name4
+ data4
+ option file => DataFile1.tdb
+ option flag => >
+ option option6 => 6
+ option option7 => 7
+
+ option file => DataFile1.tdb
+ option flag => >
+ option option6 => 6
+ option option7 => 7
+
+ ~-~
+ '
+
+ => $snl->fin('DataFile1.txt')
+ 'encode_record
+ encode_field
+ name1
+ data1
+ name2
+ data2
+ option file => DataFile1.tdb
+ option flag => >
+ option option6 => 6
+ option option7 => 7
+
+ option file => DataFile1.tdb
+ option flag => >
+ option option6 => 6
+ option option7 => 7
+
+ ~-~
+ encode_record
+ encode_field
+ name3
+ data3
+ name4
+ data4
+ option file => DataFile1.tdb
+ option flag => >
+ option option6 => 6
+ option option7 => 7
+
+ option file => DataFile1.tdb
+ option flag => >
+ option option6 => 6
+ option option7 => 7
+
+ ~-~
+ '
+
+ =>     $dbh->finish();
+ =>     unlink 'DataFile1.txt';
+ =>     unlink 'DataFile1.tdb';
+
+ =>     $dbh = new t::DataPort::DataFileI(flag => '>', file => 'DataFile1.tdb',
+ =>                option8 => '8' );
+
+ =>     @db = ( [ 'name5','data5','name6','data6'], [ 'name7', 'data7' ] );  
+ =>  
+ =>     foreach $array_p (@db) { 
+ =>         $dbh->put($array_p);
+ =>     }
+ =>     $dbh->finish();
+ => $snl->fin('DataFile1.tdb')
+ 'put_record
+ encode_record
+ encode_field
+ name5
+ data5
+ name6
+ data6
+ option file => DataFile1.tdb
+ option flag => >
+ option option8 => 8
+
+ option file => DataFile1.tdb
+ option flag => >
+ option option8 => 8
+
+ ~-~
+ put_record
+ encode_record
+ encode_field
+ name7
+ data7
+ option file => DataFile1.tdb
+ option flag => >
+ option option8 => 8
+
+ option file => DataFile1.tdb
+ option flag => >
+ option option8 => 8
+
+ ~-~
+ '
+
+ =>     unlink 'DataFile1.txt';
+ =>     unlink 'DataFile1.tdb';
+
+ =>     $dbh = new t::DataPort::DataFileI(flag => '>', file => 'DataFile1.tdb',
+ =>               binary => 1, option9 => '9' );
+
+ =>     @db = ( [ 'name5','data5','name6','data6'], [ 'name7', 'data7' ] );  
+ =>  
+ =>     foreach $array_p (@db) { 
+ =>         $dbh->put($array_p);
+ =>     }
+ =>     $dbh->finish();
+ => $snl->fin('DataFile1.tdb')
+ 'put_record
+ encode_record
+ encode_field
+ name5
+ data5
+ name6
+ data6
+ option binary => 1
+ option file => DataFile1.tdb
+ option flag => >
+ option option9 => 9
+
+ option binary => 1
+ option file => DataFile1.tdb
+ option flag => >
+ option option9 => 9
+
+ ~-~
+ put_record
+ encode_record
+ encode_field
+ name7
+ data7
+ option binary => 1
+ option file => DataFile1.tdb
+ option flag => >
+ option option9 => 9
+
+ option binary => 1
+ option file => DataFile1.tdb
+ option flag => >
+ option option9 => 9
+
+ ~-~
+ '
+
+ =>     unlink 'DataFile1.txt';
+ =>     unlink 'DataFile1.tdb';
+
+ =>     $dbh = new t::DataPort::DataFileI(flag => '<', file => 'DataFile0.tdb',
+ =>                binary => 1, option10 => '10', option11 => '11' );
+
+ =>     while( $dbh->get($array_p, $record_p) ) {
+ =>         $snl->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append => 1, binary => 1});
+ =>         $snl->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1, binary => 1});
+ =>     }
+ =>     $dbh->finish();
+ => $snl->fin('DataFile1.txt')
+ 'test record 1
+ binary => 1
+ file => DataFile0.tdb
+ flag => <
+ option10 => 10
+ option11 => 11
+ get_record
+
+ binary => 1
+ file => DataFile0.tdb
+ flag => <
+ option10 => 10
+ option11 => 11
+ decode_record
+
+ ~-~
+ fields
+ +--
+ test record 1
+ binary => 1
+ file => DataFile0.tdb
+ flag => <
+ option10 => 10
+ option11 => 11
+ get_record
+
+ binary => 1
+ file => DataFile0.tdb
+ flag => <
+ option10 => 10
+ option11 => 11
+ decode_record
+
+ +--
+ binary
+ +--
+ 1
+ +--
+ file
+ +--
+ DataFile0.tdb
+ +--
+ flag
+ +--
+ <
+ +--
+ option10
+ +--
+ 10
+ +--
+ option11
+ +--
+ 11
+ +--
+ subroutine
+ +--
+ decode_field
+ ~-~
+ test record 2
+ binary => 1
+ file => DataFile0.tdb
+ flag => <
+ option10 => 10
+ option11 => 11
+ get_record
+
+ binary => 1
+ file => DataFile0.tdb
+ flag => <
+ option10 => 10
+ option11 => 11
+ decode_record
+
+ ~-~
+ fields
+ +--
+ test record 2
+ binary => 1
+ file => DataFile0.tdb
+ flag => <
+ option10 => 10
+ option11 => 11
+ get_record
+
+ binary => 1
+ file => DataFile0.tdb
+ flag => <
+ option10 => 10
+ option11 => 11
+ decode_record
+
+ +--
+ binary
+ +--
+ 1
+ +--
+ file
+ +--
+ DataFile0.tdb
+ +--
+ flag
+ +--
+ <
+ +--
+ option10
+ +--
+ 10
+ +--
+ option11
+ +--
+ 11
+ +--
+ subroutine
+ +--
+ decode_field
+ ~-~
+ '
+
+ =>     unlink 'DataFile1.txt';
+ =>     unlink 'DataFile1.tdb';
 
 =head1 QUALITY ASSURANCE
 

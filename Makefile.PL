@@ -18,27 +18,21 @@
 use ExtUtils::MakeMaker;
 
 my $tests = join ' ',unix2os('t/DataPort/DataFile.t');
-my $exe;
-if( $exe ) {
-  $exe = [join ' ',unix2os($exe)];
-}
-else {
-   $exe = [];
-}
+
 
 WriteMakefile(
     NAME => 'DataPort::DataFile',
     DISTNAME => 'DataPort-DataFile',
-    VERSION  => '0.02',
+    VERSION  => '0.03',
     dist     => {COMPRESS => 'gzip',
                 'gz' => 'gz'},
     test     => {TESTS => $tests},
-    PREREQ_PM => {'Test::Tech' => 1.08,
-'Test::STD::Scrub' => 1.07,
-'File::Package' => 0,
-'File::SmartNL' => 0,
-'File::TestPath' => 0,},
-    EXE_FILES => $exe,
+    PREREQ_PM => {'Test::Tech' => '1.09',
+                  'Text::Scrub' => '0',
+                  'File::Package' => '0',
+                  'File::SmartNL' => '0',
+                  'File::TestPath' => '0',},
+    
 
     ($] >= 5.005 ?     
         (AUTHOR    => 'SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>',

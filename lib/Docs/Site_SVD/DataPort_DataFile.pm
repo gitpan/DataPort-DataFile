@@ -10,20 +10,20 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.02';
-$DATE = '2003/06/24';
+$VERSION = '0.03';
+$DATE = '2003/07/07';
 $FILE = __FILE__;
 
 use vars qw(%INVENTORY);
 %INVENTORY = (
-    'lib/Docs/Site_SVD/DataPort_DataFile.pm' => [qw(0.02 2003/06/24), 'revised 0.01'],
-    'MANIFEST' => [qw(0.02 2003/06/24), 'generated, replaces 0.01'],
-    'Makefile.PL' => [qw(0.02 2003/06/24), 'generated, replaces 0.01'],
-    'README' => [qw(0.02 2003/06/24), 'generated, replaces 0.01'],
-    'lib/DataPort/DataFile.pm' => [qw(0.02 2003/06/23), 'unchanged'],
-    't/DataPort/DataFile.d' => [qw(0.04 2003/06/24), 'revised 0.03'],
-    't/DataPort/DataFile.pm' => [qw(0.03 2003/06/24), 'revised 0.02'],
-    't/DataPort/DataFile.t' => [qw(0.06 2003/06/24), 'revised 0.05'],
+    'lib/Docs/Site_SVD/DataPort_DataFile.pm' => [qw(0.03 2003/07/07), 'revised 0.02'],
+    'MANIFEST' => [qw(0.03 2003/07/07), 'generated, replaces 0.02'],
+    'Makefile.PL' => [qw(0.03 2003/07/07), 'generated, replaces 0.02'],
+    'README' => [qw(0.03 2003/07/07), 'generated, replaces 0.02'],
+    'lib/DataPort/DataFile.pm' => [qw(0.03 2003/07/07), 'revised 0.02'],
+    't/DataPort/DataFile.d' => [qw(0.05 2003/07/07), 'revised 0.04'],
+    't/DataPort/DataFile.pm' => [qw(0.04 2003/07/07), 'revised 0.03'],
+    't/DataPort/DataFile.t' => [qw(0.07 2003/07/07), 'revised 0.06'],
     't/DataPort/DataFile0.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile2.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile2.txt' => [qw(0.01 2003/06/08), 'unchanged'],
@@ -59,11 +59,11 @@ use vars qw(%INVENTORY);
 
  DataPort::DataFile - Pure Perl API for database files.
 
- Revision: A
+ Revision: B
 
- Version: 0.02
+ Version: 0.03
 
- Date: 2003/06/24
+ Date: 2003/07/07
 
  Prepared for: General Public 
 
@@ -87,34 +87,16 @@ extend the capabilities of the Perl language.
 
 =head2 1.2 System overview
 
-The system is the Perl programming language software.
-As established by the Perl referenced documents,
-program modules, such the "DataPort::DataFile" module, extends the Perl language.
+The "DataPort::DataFile" module, extends the Perl language 
+(the Perl language is the system).
 
 The "DataPort::DataFile" program module accesses different types of
 data sources in different formats
-and streams them to a stanadard pure Perl API. 
-
-The dependency of the program modules in the US DOD STD2167A bundle is as follows:
- 
- File::Package 
-   File::TestPath File::SmartNL
-      Test::STD::Scrub
-        Test::Tech
-           DataPort::FileType::FormDB DataPort::DataFile DataPort::Maker Test::STD::Template
-             Test::STDmaker ExtUtils::SVDmaker
-
-Note the 
-L<File::FileUtil|File::FileUtil>, 
-L<Test::STD::STDutil|Test::STD::STDutil> 
-L<Test::STD::Scrub|Test::STD::Scrub> 
-program modules breaks up 
-the Test::TestUtil program module
-and Test::TestUtil has disappeared.
+and streams them to a standard pure Perl API.
 
 =head2 1.3 Document overview.
 
-This document releases DataPort::DataFile version 0.02
+This document releases DataPort::DataFile version 0.03
 providing description of the inventory, installation
 instructions and other information necessary to
 utilize and track this release.
@@ -130,8 +112,8 @@ system file specification.
 This document releases the file found
 at the following repository(s):
 
-   http://www.softwarediamonds/packages/DataPort-DataFile-0.02
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.02
+   http://www.softwarediamonds/packages/DataPort-DataFile-0.03
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.03
 
 
 Restrictions regarding duplication and license provisions
@@ -199,14 +181,14 @@ consists of the following files:
 
  file                                                         version date       comment
  ------------------------------------------------------------ ------- ---------- ------------------------
- lib/Docs/Site_SVD/DataPort_DataFile.pm                       0.02    2003/06/24 revised 0.01
- MANIFEST                                                     0.02    2003/06/24 generated, replaces 0.01
- Makefile.PL                                                  0.02    2003/06/24 generated, replaces 0.01
- README                                                       0.02    2003/06/24 generated, replaces 0.01
- lib/DataPort/DataFile.pm                                     0.02    2003/06/23 unchanged
- t/DataPort/DataFile.d                                        0.04    2003/06/24 revised 0.03
- t/DataPort/DataFile.pm                                       0.03    2003/06/24 revised 0.02
- t/DataPort/DataFile.t                                        0.06    2003/06/24 revised 0.05
+ lib/Docs/Site_SVD/DataPort_DataFile.pm                       0.03    2003/07/07 revised 0.02
+ MANIFEST                                                     0.03    2003/07/07 generated, replaces 0.02
+ Makefile.PL                                                  0.03    2003/07/07 generated, replaces 0.02
+ README                                                       0.03    2003/07/07 generated, replaces 0.02
+ lib/DataPort/DataFile.pm                                     0.03    2003/07/07 revised 0.02
+ t/DataPort/DataFile.d                                        0.05    2003/07/07 revised 0.04
+ t/DataPort/DataFile.pm                                       0.04    2003/07/07 revised 0.03
+ t/DataPort/DataFile.t                                        0.07    2003/07/07 revised 0.06
  t/DataPort/DataFile0.tdb                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile2.tdb                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile2.txt                                     0.01    2003/06/08 unchanged
@@ -221,13 +203,6 @@ consists of the following files:
 =head2 3.3 Changes
 
 Changes to the previous version are as follows:
-
-Broke up the package "File::FileUtil" into packages with
-functional similar functions with a more descriptive 
-package name.
-
-Replace "File::FileUtil" with "File::Package", "File::smartNL"
-and "File::TestPath".
 
 Previous changes are as follows:
 
@@ -360,6 +335,24 @@ To:
 
 =back
 
+=item DataPort_DataFile 0.01
+
+Broke up the package "File::FileUtil" into packages with
+functional similar functions with a more descriptive 
+package name.
+
+Replace "File::FileUtil" with "File::Package", "File::smartNL"
+and "File::TestPath".
+
+=item DataPort_DataFile 0.02
+
+Replace "Test::STD::STDutil" with "Text::Replace" and "Text::Column".
+Replace "Test::STD::Scrub" with "Text::Scrub".
+
+=item DataPort_DataFile 0.03
+
+Modified PREREQ_PM to reflect new "Text::Scrub" instead of "Test::STD::Scrub".
+
 =back
 
 =head2 3.4 Adaptation data.
@@ -402,17 +395,17 @@ Follow the instructions for the the chosen installation software.
 
 The distribution file is at the following respositories:
 
-   http://www.softwarediamonds/packages/DataPort-DataFile-0.02
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.02
+   http://www.softwarediamonds/packages/DataPort-DataFile-0.03
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.03
 
 
 =item Prerequistes.
 
- 'Test::Tech' => 1.08,
- 'Test::STD::Scrub' => 1.07,
- 'File::Package' => 0,
- 'File::SmartNL' => 0,
- 'File::TestPath' => 0,
+ 'Test::Tech' => '1.09',
+ 'Text::Scrub' => '0',
+ 'File::Package' => '0',
+ 'File::SmartNL' => '0',
+ 'File::TestPath' => '0',
 
 
 =item Security, privacy, or safety precautions.
@@ -457,148 +450,11 @@ extension for a Perl Library Module
 
 extension for a Perl test script file
 
-=item DID
-
-Data Item Description
-
-=item DOD
-
-Department of Defense
-
-=item POD
-
-Plain Old Documentation
-
-=item SVD
-
-Software Version Description
-
-=item US
-
-United States
-
 =back
 
 =head1 2.0 SEE ALSO
 
-Modules with end-user functional interfaces 
-relating to US DOD 2167A automation are
-as follows:
-
-=over 4
-
-=item L<Test::STDmaker|Test::STDmaker>
-
-=item L<ExtUtils::SVDmaker|ExtUtils::SVDmaker>
-
-=item L<DataPort::FileType::FormDB|DataPort::FileType::FormDB>
-
-=item L<DataPort::DataFile|DataPort::DataFile>
-
-=item L<Test::Tech|Test::Tech>
-
-=item L<Test|Test>
-
-=item L<Data::Dumper|Data::Dumper>
-
-=item L<Test::STD::Scrub|Test::STD::Scrub>
-
-=item L<Test::STD::STDutil|Test::STD::STDutil>
-
-=item L<File::FileUtil|File::FileUtil>
-
-=back
-
-The design modules for L<Test::STDmaker|Test::STDmaker>
-have no other conceivable use then to support the
-L<Test::STDmaker|Test::STDmaker> functional interface. 
-The  L<Test::STDmaker|Test::STDmaker>
-design module are as follows:
-
-=over 4
-
-=item L<Test::STD::Check|Test::>
-
-=item L<Test::STD::FileGen|Test::STD::FileGen>
-
-=item L<Test::STD::STD2167|Test::STD::STD2167>
-
-=item L<Test::STD::STDgen|Test::STD::STDgen>
-
-=item L<Test::STDtype::Demo|Test::STDtype::Demo>
-
-=item L<Test::STDtype::STD|Test::STDtype::STD>
-
-=item L<Test::STDtype::Verify|Test::STDtype::Verify>
-
-=back
-
-
-Some US DOD 2167A Software Development Standard, DIDs and
-other related documents that complement the 
-US DOD 2167A automation are as follows:
-
-=over 4
-
-=item L<US DOD Software Development Standard|Docs::US_DOD::STD2167A>
-
-=item L<US DOD Specification Practices|Docs::US_DOD::STD490A>
-
-=item L<Computer Operation Manual (COM) DID|Docs::US_DOD::COM>
-
-=item L<Computer Programming Manual (CPM) DID)|Docs::US_DOD::CPM>
-
-=item L<Computer Resources Integrated Support Document (CRISD) DID|Docs::US_DOD::CRISD>
-
-=item L<Computer System Operator's Manual (CSOM) DID|Docs::US_DOD::CSOM>
-
-=item L<Database Design Description (DBDD) DID|Docs::US_DOD::DBDD>
-
-=item L<Engineering Change Proposal (ECP) DID|Docs::US_DOD::ECP>
-
-=item L<Firmware support Manual (FSM) DID|Docs::US_DOD::FSM>
-
-=item L<Interface Design Document (IDD) DID|Docs::US_DOD::IDD>
-
-=item L<Interface Requirements Specification (IRS) DID|Docs::US_DOD::IRS>
-
-=item L<Operation Concept Description (OCD) DID|Docs::US_DOD::OCD>
-
-=item L<Specification Change Notice (SCN) DID|Docs::US_DOD::SCN>
-
-=item L<Software Design Specification (SDD) DID|Docs::US_DOD::SDD>
-
-=item L<Software Development Plan (SDP) DID|Docs::US_DOD::SDP> 
-
-=item L<Software Input and Output Manual (SIOM) DID|Docs::US_DOD::SIOM>
-
-=item L<Software Installation Plan (SIP) DID|Docs::US_DOD::SIP>
-
-=item L<Software Programmer's Manual (SPM) DID|Docs::US_DOD::SPM>
-
-=item L<Software Product Specification (SPS) DID|Docs::US_DOD::SPS>
-
-=item L<Software Requirements Specification (SRS) DID|Docs::US_DOD::SRS>
-
-=item L<System or Segment Design Document (SSDD) DID|Docs::US_DOD::SSDD>
-
-=item L<System or Subsystem Specification (SSS) DID|Docs::US_DOD::SSS>
-
-=item L<Software Test Description (STD) DID|Docs::US_DOD::STD>
-
-=item L<Software Test Plan (STP) DID|Docs::US_DOD::STP>
-
-=item L<Software Test Report (STR) DID|Docs::US_DOD::STR>
-
-=item L<Software Transition Plan (STrP) DID|Docs::US_DOD::STrP>
-
-=item L<Software User Manual (SUM) DID|Docs::US_DOD::SUM>
-
-=item L<Software Version Description (SVD) DID|Docs::US_DOD::SVD>
-
-=item L<Version Description Document (VDD) DID|Docs::US_DOD::VDD>
-
-=back
+L<DataPort::DataFile|DataPort::DataFile>
 
 =for html
 <hr>
@@ -623,13 +479,13 @@ US DOD 2167A automation are as follows:
 __DATA__
 
 DISTNAME: DataPort-DataFile^
-VERSION : 0.02^
+VERSION : 0.03^
 REPOSITORY_DIR: packages^
 FREEZE: 1^
 
 PREVIOUS_DISTNAME:  ^
-REVISION: A^
-PREVIOUS_RELEASE: 0.01^
+REVISION: B^
+PREVIOUS_RELEASE: 0.02^
 AUTHOR  : SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>^
 
 ABSTRACT: 
@@ -664,11 +520,11 @@ t/DataPort/DataFile*
 ^
 
 PREREQ_PM:
-'Test::Tech' => 1.08,
-'Test::STD::Scrub' => 1.07,
-'File::Package' => 0,
-'File::SmartNL' => 0,
-'File::TestPath' => 0,
+'Test::Tech' => '1.09',
+'Text::Scrub' => '0',
+'File::Package' => '0',
+'File::SmartNL' => '0',
+'File::TestPath' => '0',
 ^
 
 TESTS:
@@ -679,13 +535,6 @@ EXE_FILES:  ^
 
 CHANGES:
 Changes to the previous version are as follows:
-
-Broke up the package "File::FileUtil" into packages with
-functional similar functions with a more descriptive 
-package name.
-
-Replace "File::FileUtil" with "File::Package", "File::smartNL"
-and "File::TestPath".
 
 Previous changes are as follows:
 
@@ -818,6 +667,24 @@ To:
 
 \=back
 
+\=item DataPort_DataFile 0.01
+
+Broke up the package "File::FileUtil" into packages with
+functional similar functions with a more descriptive 
+package name.
+
+Replace "File::FileUtil" with "File::Package", "File::smartNL"
+and "File::TestPath".
+
+\=item DataPort_DataFile 0.02
+
+Replace "Test::STD::STDutil" with "Text::Replace" and "Text::Column".
+Replace "Test::STD::Scrub" with "Text::Scrub".
+
+\=item DataPort_DataFile 0.03
+
+Modified PREREQ_PM to reflect new "Text::Scrub" instead of "Test::STD::Scrub".
+
 \=back
 ^
 
@@ -829,30 +696,12 @@ utilize and track this release.
 ^
 
 CAPABILITIES:
-The system is the Perl programming language software.
-As established by the Perl referenced documents,
-program modules, such the "DataPort::DataFile" module, extends the Perl language.
+The "DataPort::DataFile" module, extends the Perl language 
+(the Perl language is the system).
 
 The "DataPort::DataFile" program module accesses different types of
 data sources in different formats
-and streams them to a stanadard pure Perl API. 
-
-The dependency of the program modules in the US DOD STD2167A bundle is as follows:
- 
- File::Package 
-   File::TestPath File::SmartNL
-      Test::STD::Scrub
-        Test::Tech
-           DataPort::FileType::FormDB DataPort::DataFile DataPort::Maker Test::STD::Template
-             Test::STDmaker ExtUtils::SVDmaker
-
-Note the 
-L<File::FileUtil|File::FileUtil>, 
-L<Test::STD::STDutil|Test::STD::STDutil> 
-L<Test::STD::Scrub|Test::STD::Scrub> 
-program modules breaks up 
-the Test::TestUtil program module
-and Test::TestUtil has disappeared.
+and streams them to a standard pure Perl API. 
 ^
 
 LICENSE:
@@ -938,149 +787,13 @@ extension for a Perl Library Module
 
 extension for a Perl test script file
 
-\=item DID
-
-Data Item Description
-
-\=item DOD
-
-Department of Defense
-
-\=item POD
-
-Plain Old Documentation
-
-\=item SVD
-
-Software Version Description
-
-\=item US
-
-United States
-
 \=back
 ^
 
 SEE_ALSO:
 
-Modules with end-user functional interfaces 
-relating to US DOD 2167A automation are
-as follows:
+L<DataPort::DataFile|DataPort::DataFile>
 
-\=over 4
-
-\=item L<Test::STDmaker|Test::STDmaker>
-
-\=item L<ExtUtils::SVDmaker|ExtUtils::SVDmaker>
-
-\=item L<DataPort::FileType::FormDB|DataPort::FileType::FormDB>
-
-\=item L<DataPort::DataFile|DataPort::DataFile>
-
-\=item L<Test::Tech|Test::Tech>
-
-\=item L<Test|Test>
-
-\=item L<Data::Dumper|Data::Dumper>
-
-\=item L<Test::STD::Scrub|Test::STD::Scrub>
-
-\=item L<Test::STD::STDutil|Test::STD::STDutil>
-
-\=item L<File::FileUtil|File::FileUtil>
-
-\=back
-
-The design modules for L<Test::STDmaker|Test::STDmaker>
-have no other conceivable use then to support the
-L<Test::STDmaker|Test::STDmaker> functional interface. 
-The  L<Test::STDmaker|Test::STDmaker>
-design module are as follows:
-
-\=over 4
-
-\=item L<Test::STD::Check|Test::>
-
-\=item L<Test::STD::FileGen|Test::STD::FileGen>
-
-\=item L<Test::STD::STD2167|Test::STD::STD2167>
-
-\=item L<Test::STD::STDgen|Test::STD::STDgen>
-
-\=item L<Test::STDtype::Demo|Test::STDtype::Demo>
-
-\=item L<Test::STDtype::STD|Test::STDtype::STD>
-
-\=item L<Test::STDtype::Verify|Test::STDtype::Verify>
-
-\=back
-
-
-Some US DOD 2167A Software Development Standard, DIDs and
-other related documents that complement the 
-US DOD 2167A automation are as follows:
-
-\=over 4
-
-\=item L<US DOD Software Development Standard|Docs::US_DOD::STD2167A>
-
-\=item L<US DOD Specification Practices|Docs::US_DOD::STD490A>
-
-\=item L<Computer Operation Manual (COM) DID|Docs::US_DOD::COM>
-
-\=item L<Computer Programming Manual (CPM) DID)|Docs::US_DOD::CPM>
-
-\=item L<Computer Resources Integrated Support Document (CRISD) DID|Docs::US_DOD::CRISD>
-
-\=item L<Computer System Operator's Manual (CSOM) DID|Docs::US_DOD::CSOM>
-
-\=item L<Database Design Description (DBDD) DID|Docs::US_DOD::DBDD>
-
-\=item L<Engineering Change Proposal (ECP) DID|Docs::US_DOD::ECP>
-
-\=item L<Firmware support Manual (FSM) DID|Docs::US_DOD::FSM>
-
-\=item L<Interface Design Document (IDD) DID|Docs::US_DOD::IDD>
-
-\=item L<Interface Requirements Specification (IRS) DID|Docs::US_DOD::IRS>
-
-\=item L<Operation Concept Description (OCD) DID|Docs::US_DOD::OCD>
-
-\=item L<Specification Change Notice (SCN) DID|Docs::US_DOD::SCN>
-
-\=item L<Software Design Specification (SDD) DID|Docs::US_DOD::SDD>
-
-\=item L<Software Development Plan (SDP) DID|Docs::US_DOD::SDP> 
-
-\=item L<Software Input and Output Manual (SIOM) DID|Docs::US_DOD::SIOM>
-
-\=item L<Software Installation Plan (SIP) DID|Docs::US_DOD::SIP>
-
-\=item L<Software Programmer's Manual (SPM) DID|Docs::US_DOD::SPM>
-
-\=item L<Software Product Specification (SPS) DID|Docs::US_DOD::SPS>
-
-\=item L<Software Requirements Specification (SRS) DID|Docs::US_DOD::SRS>
-
-\=item L<System or Segment Design Document (SSDD) DID|Docs::US_DOD::SSDD>
-
-\=item L<System or Subsystem Specification (SSS) DID|Docs::US_DOD::SSS>
-
-\=item L<Software Test Description (STD) DID|Docs::US_DOD::STD>
-
-\=item L<Software Test Plan (STP) DID|Docs::US_DOD::STP>
-
-\=item L<Software Test Report (STR) DID|Docs::US_DOD::STR>
-
-\=item L<Software Transition Plan (STrP) DID|Docs::US_DOD::STrP>
-
-\=item L<Software User Manual (SUM) DID|Docs::US_DOD::SUM>
-
-\=item L<Software Version Description (SVD) DID|Docs::US_DOD::SVD>
-
-\=item L<Version Description Document (VDD) DID|Docs::US_DOD::VDD>
-
-\=back
 
 ^
 

@@ -7,8 +7,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '0.04';   # automatically generated file
-$DATE = '2003/06/24';
+$VERSION = '0.05';   # automatically generated file
+$DATE = '2003/07/07';
 
 
 ##### Demonstration Script ####
@@ -47,16 +47,16 @@ BEGIN {
     # Working directory is that of the script file
     #
     $__restore_dir__ = cwd();
-    my ($vol, $dirs, undef) = File::Spec->splitpath( $0 );
+    my ($vol, $dirs, undef) = File::Spec->splitpath(__FILE__);
     chdir $vol if $vol;
     chdir $dirs if $dirs;
 
     #######
     # Add the library of the unit under test (UUT) to @INC
     #
-    @__restore_inc__ = File::FileUtil->test_lib2inc();
+    @__restore_inc__ = File::TestPath->test_lib2inc();
 
-    unshift @INC, File::TestPath->catdir( cwd(), 'lib' ); 
+    unshift @INC, File::Spec->catdir( cwd(), 'lib' ); 
 
 }
 
@@ -92,12 +92,16 @@ demo( "\ \ \ \ use\ File\:\:SmartNL\;\
 \ \ \ \ my\ \$snl\ \=\ \'File\:\:SmartNL\'\;\
 \
 \ \ \ \ use\ File\:\:Package\;\
-\ \ \ \ my\ \$fp\ \=\ \'File\:\:Package\'\;"); # typed in command           
+\ \ \ \ my\ \$fp\ \=\ \'File\:\:Package\'\;\
+\
+\ \ \ \ my\ \$loaded\ \=\ \'\'\;"); # typed in command           
           use File::SmartNL;
     my $snl = 'File::SmartNL';
 
     use File::Package;
-    my $fp = 'File::Package';; # execution
+    my $fp = 'File::Package';
+
+    my $loaded = '';; # execution
 
 demo( "my\ \$errors\ \=\ \$fp\-\>load_package\(\ \'t\:\:DataPort\:\:DataFileI\'\ \)"); # typed in command           
       my $errors = $fp->load_package( 't::DataPort::DataFileI' ); # execution

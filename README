@@ -5,11 +5,11 @@ Title Page
 
      DataPort::DataFile - Pure Perl API for database files.
 
-     Revision: A
+     Revision: B
 
-     Version: 0.02
+     Version: 0.03
 
-     Date: 2003/06/24
+     Date: 2003/07/07
 
      Prepared for: General Public 
 
@@ -30,31 +30,16 @@ Title Page
 
   1.2 System overview
 
-    The system is the Perl programming language software. As established by
-    the Perl referenced documents, program modules, such the
-    "DataPort::DataFile" module, extends the Perl language.
+    The "DataPort::DataFile" module, extends the Perl language (the Perl
+    language is the system).
 
     The "DataPort::DataFile" program module accesses different types of data
-    sources in different formats and streams them to a stanadard pure Perl
+    sources in different formats and streams them to a standard pure Perl
     API.
-
-    The dependency of the program modules in the US DOD STD2167A bundle is
-    as follows:
-
-     File::Package 
-       File::TestPath File::SmartNL
-          Test::STD::Scrub
-            Test::Tech
-               DataPort::FileType::FormDB DataPort::DataFile DataPort::Maker Test::STD::Template
-                 Test::STDmaker ExtUtils::SVDmaker
-
-    Note the File::FileUtil, Test::STD::STDutil Test::STD::Scrub program
-    modules breaks up the Test::TestUtil program module and Test::TestUtil
-    has disappeared.
 
   1.3 Document overview.
 
-    This document releases DataPort::DataFile version 0.02 providing
+    This document releases DataPort::DataFile version 0.03 providing
     description of the inventory, installation instructions and other
     information necessary to utilize and track this release.
 
@@ -66,8 +51,8 @@ Title Page
 
     This document releases the file found at the following repository(s):
 
-       http://www.softwarediamonds/packages/DataPort-DataFile-0.02
-       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.02
+       http://www.softwarediamonds/packages/DataPort-DataFile-0.03
+       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.03
 
     Restrictions regarding duplication and license provisions are as
     follows:
@@ -112,14 +97,14 @@ Title Page
 
      file                                                         version date       comment
      ------------------------------------------------------------ ------- ---------- ------------------------
-     lib/Docs/Site_SVD/DataPort_DataFile.pm                       0.02    2003/06/24 revised 0.01
-     MANIFEST                                                     0.02    2003/06/24 generated, replaces 0.01
-     Makefile.PL                                                  0.02    2003/06/24 generated, replaces 0.01
-     README                                                       0.02    2003/06/24 generated, replaces 0.01
-     lib/DataPort/DataFile.pm                                     0.02    2003/06/23 unchanged
-     t/DataPort/DataFile.d                                        0.04    2003/06/24 revised 0.03
-     t/DataPort/DataFile.pm                                       0.03    2003/06/24 revised 0.02
-     t/DataPort/DataFile.t                                        0.06    2003/06/24 revised 0.05
+     lib/Docs/Site_SVD/DataPort_DataFile.pm                       0.03    2003/07/07 revised 0.02
+     MANIFEST                                                     0.03    2003/07/07 generated, replaces 0.02
+     Makefile.PL                                                  0.03    2003/07/07 generated, replaces 0.02
+     README                                                       0.03    2003/07/07 generated, replaces 0.02
+     lib/DataPort/DataFile.pm                                     0.03    2003/07/07 revised 0.02
+     t/DataPort/DataFile.d                                        0.05    2003/07/07 revised 0.04
+     t/DataPort/DataFile.pm                                       0.04    2003/07/07 revised 0.03
+     t/DataPort/DataFile.t                                        0.07    2003/07/07 revised 0.06
      t/DataPort/DataFile0.tdb                                     0.01    2003/06/08 unchanged
      t/DataPort/DataFile2.tdb                                     0.01    2003/06/08 unchanged
      t/DataPort/DataFile2.txt                                     0.01    2003/06/08 unchanged
@@ -133,12 +118,6 @@ Title Page
   3.3 Changes
 
     Changes to the previous version are as follows:
-
-    Broke up the package "File::FileUtil" into packages with functional
-    similar functions with a more descriptive package name.
-
-    Replace "File::FileUtil" with "File::Package", "File::smartNL" and
-    "File::TestPath".
 
     Previous changes are as follows:
 
@@ -255,6 +234,21 @@ Title Page
             join("\n+--\n",@$array_p) . "\n~-~\n", {append => 1, binary =>
             1});
 
+    DataPort_DataFile 0.01
+        Broke up the package "File::FileUtil" into packages with functional
+        similar functions with a more descriptive package name.
+
+        Replace "File::FileUtil" with "File::Package", "File::smartNL" and
+        "File::TestPath".
+
+    DataPort_DataFile 0.02
+        Replace "Test::STD::STDutil" with "Text::Replace" and
+        "Text::Column". Replace "Test::STD::Scrub" with "Text::Scrub".
+
+    DataPort_DataFile 0.03
+        Modified PREREQ_PM to reflect new "Text::Scrub" instead of
+        "Test::STD::Scrub".
+
   3.4 Adaptation data.
 
     This installation requires that the installation site has the Perl
@@ -291,15 +285,15 @@ Title Page
 
         The distribution file is at the following respositories:
 
-           http://www.softwarediamonds/packages/DataPort-DataFile-0.02
-           http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.02
+           http://www.softwarediamonds/packages/DataPort-DataFile-0.03
+           http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-DataFile-0.03
 
     Prerequistes.
-         'Test::Tech' => 1.08,
-         'Test::STD::Scrub' => 1.07,
-         'File::Package' => 0,
-         'File::SmartNL' => 0,
-         'File::TestPath' => 0,
+         'Test::Tech' => '1.09',
+         'Text::Scrub' => '0',
+         'File::Package' => '0',
+         'File::SmartNL' => '0',
+         'File::TestPath' => '0',
 
     Security, privacy, or safety precautions.
         None.
@@ -329,70 +323,6 @@ Title Page
 
     .t  extension for a Perl test script file
 
-    DID Data Item Description
-
-    DOD Department of Defense
-
-    POD Plain Old Documentation
-
-    SVD Software Version Description
-
-    US  United States
-
 2.0 SEE ALSO
-    Modules with end-user functional interfaces relating to US DOD 2167A
-    automation are as follows:
-
-    Test::STDmaker
-    ExtUtils::SVDmaker
-    DataPort::FileType::FormDB
     DataPort::DataFile
-    Test::Tech
-    Test
-    Data::Dumper
-    Test::STD::Scrub
-    Test::STD::STDutil
-    File::FileUtil
-    The design modules for Test::STDmaker have no other conceivable use then
-    to support the Test::STDmaker functional interface. The Test::STDmaker
-    design module are as follows:
 
-    Test::STD::Check
-    Test::STD::FileGen
-    Test::STD::STD2167
-    Test::STD::STDgen
-    Test::STDtype::Demo
-    Test::STDtype::STD
-    Test::STDtype::Verify
-    Some US DOD 2167A Software Development Standard, DIDs and other related
-    documents that complement the US DOD 2167A automation are as follows:
-
-    US DOD Software Development Standard
-    US DOD Specification Practices
-    Computer Operation Manual (COM) DID
-    Computer Programming Manual (CPM) DID)
-    Computer Resources Integrated Support Document (CRISD) DID
-    Computer System Operator's Manual (CSOM) DID
-    Database Design Description (DBDD) DID
-    Engineering Change Proposal (ECP) DID
-    Firmware support Manual (FSM) DID
-    Interface Design Document (IDD) DID
-    Interface Requirements Specification (IRS) DID
-    Operation Concept Description (OCD) DID
-    Specification Change Notice (SCN) DID
-    Software Design Specification (SDD) DID
-    Software Development Plan (SDP) DID
-    Software Input and Output Manual (SIOM) DID
-    Software Installation Plan (SIP) DID
-    Software Programmer's Manual (SPM) DID
-    Software Product Specification (SPS) DID
-    Software Requirements Specification (SRS) DID
-    System or Segment Design Document (SSDD) DID
-    System or Subsystem Specification (SSS) DID
-    Software Test Description (STD) DID
-    Software Test Plan (STP) DID
-    Software Test Report (STR) DID
-    Software Transition Plan (STrP) DID
-    Software User Manual (SUM) DID
-    Software Version Description (SVD) DID
-    Version Description Document (VDD) DID

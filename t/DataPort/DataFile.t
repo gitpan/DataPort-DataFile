@@ -7,8 +7,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE);
-$VERSION = '0.06';   # automatically generated file
-$DATE = '2003/06/24';
+$VERSION = '0.07';   # automatically generated file
+$DATE = '2003/07/07';
 $FILE = __FILE__;
 
 use Test::Tech;
@@ -50,7 +50,7 @@ BEGIN {
    # Working directory is that of the script file
    #
    $__restore_dir__ = cwd();
-   my ($vol, $dirs, undef) = File::Spec->splitpath( __FILE__ );
+   my ($vol, $dirs, undef) = File::Spec->splitpath(__FILE__);
    chdir $vol if $vol;
    chdir $dirs if $dirs;
 
@@ -96,7 +96,9 @@ END {
     use File::Package;
     my $fp = 'File::Package';
 
-ok(  my $loaded = $fp->is_package_loaded('t::DataPort::DataFileI'), # actual results
+    my $loaded = '';
+
+ok(  $loaded = $fp->is_package_loaded('t::DataPort::DataFileI'), # actual results
       '', # expected results
      '',
      'UUT not loaded');
